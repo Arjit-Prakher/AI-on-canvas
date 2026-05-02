@@ -55,10 +55,10 @@ const Home = () => {
 
     // 2. SAVE: Send the current canvas to MongoDB
     const saveCurrentFlow = async () => {
-        if (nodes.length <= 1 && !nodes[0]?.data?.message) return;
+        // if (nodes.length <= 1 && !nodes[0]?.data?.message) return;
 
-        // const hasChatNode = nodes.some(node => node.type === 'chat');
-        // if (!hasChatNode) return;
+        const hasChatNode = nodes.some(node => node.type === 'chat');
+        if (!hasChatNode) return;
 
         const flowData = {
             title: nodes[0]?.data?.message?.substring(0, 20) || "New Flow",
@@ -141,6 +141,9 @@ const Home = () => {
         if (nodes.some(n => n.data.message !== '')) {
             await saveCurrentFlow();
         }
+        // if (nodes.some(n => console.log(n))) {
+        //     console.log("hello");
+        // }
 
         // saveCurrentFlow();
         setNodes(initialNode);

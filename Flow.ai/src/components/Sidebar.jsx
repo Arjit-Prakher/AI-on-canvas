@@ -3,7 +3,9 @@ import { useAuth } from "../context/AuthContext";
 
 const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlowId, setActiveFlowId, setMessages }) => {
 
-    const { user, logout } = useAuth();
+    const { logout } = useAuth();
+    const user = localStorage.getItem('user');
+    // console.log(user);
     const { token } = useAuth();
     const navigate = useNavigate();
 
@@ -94,11 +96,11 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
             <div className="p-4 border-t border-zinc-800 bg-zinc-900/30">
                 <div className="flex items-center gap-3 mb-4 p-2">
                     <div className="w-10 h-10 rounded-full bg-linear-to-br from-pink-500 to-blue-500 flex items-center justify-center font-bold">
-                        {user?.email?.charAt(0).toUpperCase()}
+                        
                     </div>
                     <div className="overflow-hidden">
-                        <p className="text-sm font-bold truncate">{user?.email}</p>
-                        <p className="text-[10px] text-pink-500 font-mono">NEON_USER_PRO</p>
+                        <p className="text-sm font-bold truncate">{user}</p>
+                        <p className="text-[10px] text-pink-500 font-mono">FLOW_PRO</p>
                     </div>
                 </div>
                 <button

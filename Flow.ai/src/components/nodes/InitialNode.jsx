@@ -11,6 +11,12 @@ const InitialNode = ({ id, data }) => {
     const [response, setResponse] = useState(data?.response || '');
     const [title, setTitle] = useState('');
     const [loading, setLoading] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+
+
+    const user = localStorage.getItem('user').split('@')[0];
+    // console.log(user);
+    // let username = email.split('@')[0]; 
 
     useEffect(() => {
         setMessage(data?.message || '');
@@ -50,7 +56,7 @@ const InitialNode = ({ id, data }) => {
             <Handle type="source" position={Position.Bottom} id="source-bottom" />
 
             <div className='greetings mt-4'>
-                <h1 className='text-5xl bg-linear-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent font-extrabold'>Welcome, User</h1>
+                <h1 className='text-5xl bg-linear-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent font-extrabold'>Hi, {user}!</h1>
                 <h3 className="markdown text-xl mt-3">
                     <ReactMarkdown>
 
@@ -77,12 +83,35 @@ const InitialNode = ({ id, data }) => {
                 </form>
             </div>
 
-            <div className='responses mt-4'>
-                <p className="markdown border px-4 py-2 rounded-2xl">
+            <div className='nowheel responses mt-4'>
+                {/* <p className="markdown border px-4 py-2 rounded-2xl">
                     <ReactMarkdown>
                         {response || "Responses will appear here..."}
                     </ReactMarkdown>
-                </p>
+                </p> */}
+                <div
+                    className={`markdown border px-4 py-2 rounded-2xl ${expanded ? "max-h-80 overflow-y-auto" : "max-h-40 overflow-hidden"
+                        } custom-scrollbar`}
+                    onWheel={(e) => e.stopPropagation()} // prevent canvas zoom
+                    onMouseDown={(e) => e.stopPropagation()} // prevent drag
+                    onPointerDown={(e) => e.stopPropagation()}
+                >
+                    <ReactMarkdown>
+                        {response || "Responses will appear here..."}
+                    </ReactMarkdown>
+                </div>
+                {response && response.length > 200 && (
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setExpanded(!expanded);
+                        }}
+                        className="mt-2 text-xs text-sky-400 hover:underline"
+                    >
+                        {expanded ? "Collapse" : "Show more"}
+                    </button>
+                )}
+
             </div>
 
 

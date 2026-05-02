@@ -23,7 +23,7 @@ const Landing = () => {
       const data = await response.json();
       if (response.ok) {
         if (isLogin) {
-          login(data.token);
+          login(data);
           navigate('/app');
         }
         else {
