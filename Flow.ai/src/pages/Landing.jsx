@@ -93,5 +93,5 @@ const Landing = () => {
     </div>
   );
 };
-
+// This work belongs to Arjit Prakher
 export default Landing;

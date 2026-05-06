@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const Flow = require('../models/Flow');
-const auth = require('../middleware/auth'); // Use our new bouncer middleware
+const auth = require('../middleware/auth'); 
 
 // SAVE a new flow
 router.post('/', auth, async (req, res) => {
     try {
         const { nodes, edges, messages, title } = req.body;
         const newFlow = new Flow({
-            userId: req.user.id, // Taken from the JWT token
+            userId: req.user.id, 
             nodes,
             edges,
             messages,
@@ -28,7 +28,7 @@ router.put('/:id', auth, async (req, res) => {
         const updatedFlow = await Flow.findOneAndUpdate(
             { _id: req.params.id, userId: req.user.id },
             { nodes, edges, messages, title },
-            { new: true } // return the updated document
+            { new: true } 
         );
 
         if (!updatedFlow) {
@@ -73,5 +73,6 @@ router.delete('/:id', auth, async (req, res) => {
         res.status(500).json({ message: "Delete failed" });
     }
 });
+// This work belongs to Arjit Prakher
 
 module.exports = router;

@@ -6,12 +6,6 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
 
-    // useEffect(() => {
-    //     if (token) {
-    //         // In a real app, you'd fetch user profile here
-    //         setUser({ email: "user@example.com" });
-    //     }
-    // }, [token]);
 
     const login = (data) => {
         // console.log(data);
@@ -33,6 +27,7 @@ export const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     );
+    // This work belongs to Arjit Prakher
 };
 
 export const useAuth = () => useContext(AuthContext);

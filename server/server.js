@@ -1,3 +1,12 @@
+// ```
+// PROJECT: Flow.AI
+// AUTHOR: Arjit Prakher
+// MCA ROLL NO: AJU/241367
+// INSTITUTION: Arka Jain University
+// DATE: 06/05/2026
+// DISCLAIMER: This code is the intellectual property of the author.
+// ```
+
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -5,39 +14,35 @@ const mongoose = require('mongoose');
 const path = require('path');
 const Groq = require('groq-sdk');
 
-// 1. CRITICAL: Load environment variables FIRST
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
-// 2. Initialize the app
 const app = express();
 
-// 3. Import routes AFTER dotenv has loaded the secrets[cite: 1]
 const authRoutes = require("./routes/auth");
 const flowRoutes = require("./routes/flows");
 const paymentRoutes = require("./routes/payment"); 
 
 app.use(express.json());
 
-// --- 1. UPDATED CORS ---
+
 app.use(cors({
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"] 
 }));
 
-// --- 2. MONGODB CONNECTION ---
+
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log("✅ Connected to MongoDB"))
     .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-// --- 3. ROUTE REGISTRATION ---
+
 app.use("/api/auth", authRoutes);
 app.use("/api/flows", flowRoutes);
-app.use("/api/payment", paymentRoutes); // Now 'app' is defined and keys are ready[cite: 1]
+app.use("/api/payment", paymentRoutes);
 
-// --- 4. GROQ AI ENDPOINT ---
 app.post("/api/generate", async (req, res) => {
     const { prompt, history } = req.body;
     try {

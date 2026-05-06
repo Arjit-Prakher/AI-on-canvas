@@ -48,5 +48,5 @@ const App = () => {
     </AuthProvider>
   );
 };
-
+// This work belongs to Arjit Prakher
 export default App;

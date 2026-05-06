@@ -1,7 +1,7 @@
 const express = require('express');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-const User = require('../models/User'); // Removed .js extension to match require style
+const User = require('../models/User'); 
 const auth = require('../middleware/auth');
 
 const router = express.Router();
@@ -14,7 +14,7 @@ const razorpay = new Razorpay({
 // 1. Create an Order
 router.post('/create-order', auth, async (req, res) => {
     const options = {
-        amount: 50000, // Amount in paise (₹500)
+        amount: 50000, 
         currency: "INR",
         receipt: `receipt_${Date.now()}`,
     };
@@ -39,7 +39,6 @@ router.post('/verify', auth, async (req, res) => {
 
     if (razorpay_signature === expectedSign) {
         try {
-            // Upgrade user to PRO in MongoDB
             await User.findByIdAndUpdate(req.user.id, { 
                 isPro: true, 
                 razorpay_order_id, 
@@ -53,5 +52,5 @@ router.post('/verify', auth, async (req, res) => {
         return res.status(400).json({ message: "Invalid signature!" });
     }
 });
-
-module.exports = router; // Match the require style
+// This work belongs to Arjit Prakher
+module.exports = router; 

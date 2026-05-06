@@ -39,35 +39,12 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
     };
 
     const handlePayment = async () => {
-
-        // handler: async (response) => {
-        //     // 3. Verify on backend
-        //     const verifyRes = await fetch('http://localhost:4000/api/payment/verify', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': `Bearer ${token}`
-        //         },
-        //         body: JSON.stringify(response)
-        //     });
-
-        //     if (verifyRes.ok) {
-        //         // Instead of just an alert, give them their internal receipt ID
-        //         const result = await verifyRes.json();
-        //         alert(`Success! Receipt Generated: ${order.receipt}`);
-
-        //         // Optional: Force a page reload or update a 'isPro' state to show the new badge
-        //         window.location.reload();
-        //     }
-        // }
-        // 1. Create order on backend
         const res = await fetch('http://localhost:4000/api/payment/create-order', {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const order = await res.json();
 
-        // 2. Open Razorpay Checkout
         const options = {
             key: import.meta.env.VITE_RAZORPAY_KEY_ID,
             amount: order.amount,
@@ -86,7 +63,7 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
                 });
                 if (verifyRes.ok) alert("Welcome to Pro!");
             },
-            theme: { color: "#db2777" } // Neon Pink
+            theme: { color: "#db2777" } 
         };
         const rzp = new window.Razorpay(options);
         rzp.open();
@@ -188,5 +165,5 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
         </aside>
     );
 }
-
+// This work belongs to Arjit Prakher
 export default Sidebar
