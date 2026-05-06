@@ -93,6 +93,16 @@ Open `http://localhost:5173` to experience Flow.AI.
 
 ---
 
+## ## Images
+Landing Page
+![LandingPage View](./images/LandingPage.png "Landing Page")
+
+Workspace
+![Workspace View](./images/Workspace.png "WorkSpace")
+
+**#topscrollingstartflowing.**
+
+---
 ## ## Conclusion
 Flow.AI is more than a tool; it is a shift in how we interact with artificial intelligence. By removing the constraints of the vertical scroll and embracing the infinite canvas, we have created an environment that mirrors the way the human brain actually works—messy, branching, and visual. 
 
