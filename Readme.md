@@ -1,123 +1,104 @@
-# 📘 AI-on-Canvas Documentation
-## 🚀 Overview
-AI-on-Canvas is a React Flow + Node.js + MongoDB application that lets users build interactive chat flows on a canvas. Each node represents a conversation step, powered by LLM responses. Flows are persisted in MongoDB, can be reloaded, and are auto‑saved during editing. The app supports authentication, role‑based access (Regular vs Pro), and Razorpay integration for upgrading users.
+# Flow.AI: The Infinite Canvas AI Experience
 
-## 🛠️ Tech Stack
-- Frontend: React, React Flow, TailwindCSS
+### **Transforming Linear Chat into Spatial Intelligence**
 
-- Backend: Node.js, Express.js
+---
 
-- Database: MongoDB (Mongoose)
+## ## Product Overview
+**Flow.AI** is a state-of-the-art AI productivity platform that replaces the traditional "message bubble" interface with an **infinite, node-based canvas**. By treating conversations as visual flows rather than vertical lists, Flow.AI allows users to map out complex ideas, branch into new topics without losing context, and manage multi-layered AI interactions in a single visual space.
 
-- Auth: JWT (JSON Web Tokens)
+Built for researchers, developers, and creative thinkers, it provides a high-performance environment where every AI response is a "node" that can be connected, moved, and saved as part of a larger mental map.
 
-- Payments: Razorpay
+---
 
-- LLM Integration: Groq API (with modular backend logic)
+## ## The Problem: The "Vertical Scroll" Fatigue
+Traditional AI interfaces (ChatGPT, Claude, etc.) suffer from **Linear Limitation**. As a conversation grows, several problems emerge:
+*   **Scrolling Fatigue**: Crucial information becomes buried under 50+ messages, requiring constant scrolling to find context.
+*   **Context Loss**: When a user wants to ask a "what if" question about a previous point, they have to break the current flow or start a new chat entirely.
+*   **Cognitive Load**: Humans think spatially and multi-dimensionally, but traditional chatbots force thoughts into a narrow, vertical "text-message" box.
 
-## ✨ Features
-Canvas-based chat flows  
-Create nodes (Initial + Chat) and connect them visually.
+### **The Solution: Spatial Conversation**
+Flow.AI solves this by introducing **Spatial Context**. Instead of scrolling, you **pan**. Instead of starting over, you **branch**. 
+*   **Branching Conversations**: Create multiple "Chat Nodes" from a single prompt to explore different outcomes simultaneously.
+*   **Visual Persistence**: Keep important definitions or code blocks visible on one side of the canvas while you continue the conversation on the other.
+*   **Infinite Workspaces**: Each "Flow" is a persistent document saved in the cloud, ready to be picked up exactly where you left it.
 
-- Auto-save  
-Flows are automatically saved to MongoDB whenever nodes/edges/messages change.
+---
 
-- History pane  
-Sidebar lists recent flows, highlights the active one, and allows loading/deleting.
+## ## The Innovation: What’s New?
+Unlike standard AI clones, Flow.AI introduces the **Node-Logic AI Architecture**:
+1.  **Non-Linear Interaction**: You can connect a response from 20 minutes ago to a new prompt today.
+2.  **Tiered AI Intelligence**: Integrated with the **Groq Llama-3 70B** model for Pro users, providing near-instantaneous inference speeds that make the canvas feel like a living extension of your thoughts.
+3.  **Visual State Management**: The system doesn't just save text; it saves the **spatial coordinates** of your ideas.
 
-- Authentication  
-JWT-based login/signup with role management (regular vs pro).
+---
 
-- Role-based models  
-Regular users access simple models; Pro users access advanced models.
+## ## Tech Stack
+*   **Frontend**: React.js with **React Flow** for the infinite canvas engine.
+*   **Styling**: Tailwind CSS for a high-performance, dark-mode "Neon" aesthetic.
+*   **Backend**: Node.js & Express.js.
+*   **Database**: MongoDB (NoSQL) for flexible storage of complex node/edge relationships.
+*   **AI Engine**: Groq SDK (Llama-3 8B/70B models).
+*   **Payments**: Razorpay API for seamless Pro-tier upgrades.
+*   **Security**: JWT (JSON Web Tokens) for session-based authentication.
 
-- Payment gateway  
-Razorpay integration for upgrading accounts to Pro.
+---
 
-- Persistence across reloads  
-Active flow is restored automatically when the page reloads.
+## ## Running the Product
 
-- Custom UI/UX  
-Collapsible responses, markdown rendering, custom scrollbars, highlighted active flows.
+### **1. Prerequisites**
+*   Node.js (v18+)
+*   MongoDB Atlas Account
+*   Groq API Key
+*   Razorpay API Key
 
-## 📂 Project Structure
-```Code
-AI-on-canvas/
-├── client/              # React frontend
-│   ├── components/      # Nodes, Sidebar, FlowCanvas
-│   ├── context/         # AuthContext
-│   └── utils/           # LLM helpers
-├── server/              # Express backend
-│   ├── models/          # User.js, Flow.js
-│   ├── routes/          # auth.js, flows.js, payment.js
-│   └── server.js        # Entry point
+### **2. Environment Configuration (Folder: server)**
+Create a `.env` file in the root directory:
+```text
+PORT=4000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GROQ_API_KEY=your_groq_key
+RAZORPAY_KEY_ID=your_key_id
+RAZORPAY_KEY_SECRET=your_key_secret
 ```
-## 🔑 Key Modules
-Flow.js
-- Defines schema for flows:
+### **2. Environment Configuration (Folder: FLow.ai)**
+Create a `.env` file in the root of Flow.ai:
+```text
+VITE_RAZORPAY_KEY_ID=your_razor_pay_key_id
+```
 
-- userId, title, nodes, edges, messages
+### **3. Installation**
+```bash
+# Install backend dependencies
+cd server
+npm install
 
-- { timestamps: true } for auto createdAt/updatedAt
+# Install frontend dependencies
+cd ../Flow.ai
+npm install
+```
 
-User.js
-- Defines schema for users:
+### **4. Launch**
+```bash
+# Start Backend
+cd server
+npm run dev
 
-- email, passwordHash, role (regular/pro)
+# Start Frontend
+cd Flow.ai
+npm run dev
+```
+Open `http://localhost:5173` to experience Flow.AI.
 
-flows linked to Flow model
+---
 
-### AuthContext.jsx
-Handles login/logout, stores { token, user }, persists session.
+## ## Conclusion
+Flow.AI is more than a tool; it is a shift in how we interact with artificial intelligence. By removing the constraints of the vertical scroll and embracing the infinite canvas, we have created an environment that mirrors the way the human brain actually works—messy, branching, and visual. 
 
-### Home.jsx
-Auto‑save with debounce
+**Flow.AI: Stop scrolling. Start flowing.**
 
-Fetch all flows on load
+---
 
-Restore active flow on reload
-
-Handles new flow creation
-
-### Sidebar.jsx
-Displays history
-
-Highlights active flow
-
-Shows logged‑in user info
-
-Allows deleting flows
-
-### 💳 Payment Integration
-Backend: /create-order and /verify-payment routes using Razorpay SDK.
-
-Frontend: Razorpay Checkout script triggers payment.
-
-Role Upgrade: On successful payment, user role updated to pro.
-
-### 🧪 Testing
-Use Razorpay test keys.
-
-Test cards: 4111 1111 1111 1111 (Visa).
-
-Verify role switching by checking user.role in AuthContext.
-
-### 📈 Future Improvements
-Collaborative flows (multi-user editing).
-
-Export/import flows as JSON.
-
-More advanced node types (decision, API call).
-
-Analytics dashboard for Pro users.
-
-## 📝 Conclusion
-AI-on-Canvas demonstrates:
-
-Full-stack development with React Flow and MongoDB.
-
-Secure authentication and persistence.
-
-Real-world integration of payments and role-based access.
-
-A polished UI/UX with auto-save and reload persistence.
+## ## Author
+This the work of Arjit Prakher, a student of Master's of Computer Application
