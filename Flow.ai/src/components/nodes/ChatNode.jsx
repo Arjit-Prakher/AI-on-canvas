@@ -1,4 +1,4 @@
-import { Handle, Position, useReactFlow } from "@xyflow/react";
+import { Handle, Position, useEdges, useReactFlow } from "@xyflow/react";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { generateResponse } from "../../utils/llm";
@@ -10,8 +10,50 @@ const ChatNode = ({ id, data }) => {
     const [message, setMessage] = useState(data?.message || '');
     const [response, setResponse] = useState(data?.response || '');
     const [loading, setLoading] = useState(false);
-
     const [expanded, setExpanded] = useState(false);
+
+    const edges = useEdges();
+    const incomingEdge = edges.find(edge => edge.target === id);
+
+    let dynamicTargetPosition = Position.Top;
+
+    let dynamicSourceTop = Position.Top;
+    let dynamicSourceRight = Position.Right;
+    let dynamicSourceBottom = Position.Bottom;
+    let dynamicSourceLeft = Position.Left;
+
+    if (incomingEdge) {
+        const sourceHandle = incomingEdge.sourceHandle;
+
+        if (sourceHandle === 'source-bottom') {
+            dynamicTargetPosition = Position.Top;
+            dynamicSourceRight = Position.Right;
+            dynamicSourceBottom = Position.Bottom;
+            dynamicSourceLeft = Position.Left;
+
+        } else if (sourceHandle === 'source-left') {
+            
+            dynamicTargetPosition = Position.Right;
+            dynamicSourceTop = Position.Top;
+            dynamicSourceRight = Position.Left;
+            dynamicSourceBottom = Position.Bottom;
+
+        } else if (sourceHandle === 'source-right') {
+
+            dynamicTargetPosition = Position.Left;
+            dynamicSourceTop = Position.Top;
+            dynamicSourceRight = Position.Right;
+            dynamicSourceBottom = Position.Bottom;
+
+        } else if (sourceHandle === 'source-top') {
+            
+            dynamicTargetPosition = Position.Bottom;
+            dynamicSourceTop = Position.Top;
+            dynamicSourceRight = Position.Right;
+            dynamicSourceLeft = Position.Left;
+        }
+    }
+
 
     useEffect(() => {
         if (data?.message !== undefined) setMessage(data.message);
@@ -67,11 +109,12 @@ const ChatNode = ({ id, data }) => {
 
     return (
         <div className='initial-node bg-zinc-800 px-5 py-4 rounded-3xl w-140 border-4 border-pink-700 text-white'>
+            <Handle type="target" position={dynamicTargetPosition} id="target-dynamic" />
 
-            <Handle type="target" position={Position.Top} id="target-top" />
-            <Handle type="source" position={Position.Left} id="source-left" />
-            <Handle type="source" position={Position.Right} id="source-right" />
-            <Handle type="source" position={Position.Bottom} id="source-bottom" />
+            <Handle type="source" position={dynamicSourceTop} id="source-top" />
+            <Handle type="source" position={dynamicSourceBottom} id="source-bottom" />
+            <Handle type="source" position={dynamicSourceLeft} id="source-left" />
+            <Handle type="source" position={dynamicSourceRight} id="source-right" />
             <div className='user-input-form mt-4'>
                 <form onSubmit={onSubmit} className='flex items-center justify-between gap-1'>
                     <textarea
@@ -107,6 +150,6 @@ const ChatNode = ({ id, data }) => {
             </div>
         </div>
     )
-}
 
+}
 export default ChatNode
