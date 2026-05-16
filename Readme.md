@@ -65,9 +65,8 @@ GROQ_API_KEY=your_groq_key
 RAZORPAY_KEY_ID=your_key_id
 RAZORPAY_KEY_SECRET=your_key_secret
 ```
-### **2. Environment Configuration (Folder: Neon Flow)**
-Create a `.env` file in the root of Neon Flow:
-### **2. Environment Configuration (Folder: Neon Flow)**
+
+### **3. Environment Configuration (Folder: Neon Flow)**
 Create a `.env` file in the root of Neon Flow:
 ```text
 VITE_RAZORPAY_KEY_ID=your_razor_pay_key_id
@@ -81,7 +80,6 @@ npm install
 
 # Install frontend dependencies
 cd ../Neon Flow
-cd ../Neon Flow
 npm install
 ```
 
@@ -92,11 +90,9 @@ cd server
 npm run dev
 
 # Start Frontend
-cd Neon Flow
-cd Neon Flow
+cd Flow.ai
 npm run dev
 ```
-Open `http://localhost:5173` to experience Neon Flow.
 Open `http://localhost:5173` to experience Neon Flow.
 
 ---
@@ -116,9 +112,8 @@ Neon Flow is more than a tool; it is a shift in how we interact with artificial 
 Neon Flow is more than a tool; it is a shift in how we interact with artificial intelligence. By removing the constraints of the vertical scroll and embracing the infinite canvas, we have created an environment that mirrors the way the human brain actually works—messy, branching, and visual. 
 
 **Neon Flow: Stop scrolling. Start flowing.**
-**Neon Flow: Stop scrolling. Start flowing.**
 
 ---
 
-## ## Author
-This the work of Arjit Prakher, a student of Master's of Computer Application
+## Author
+This is the work of *Arjit Prakher*, a student of **Master's of Computer Application**
